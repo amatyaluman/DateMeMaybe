@@ -18,15 +18,15 @@
       }
       p {
         position: absolute;
-        top: 200px;
-        left: 400px;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 5vw; /* Responsive font size */
+        white-space: nowrap;
       }
 
       #movingButton {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         padding: 10px 20px;
         background-color: #e32594;
         color: #fff;
@@ -36,13 +36,11 @@
       }
 
       #movingButton:hover {
-        transform: translate(-50%, -50%) scale(1.1);
+        transform: scale(1.1);
       }
 
       #Button {
         position: absolute;
-        top: 47%;
-        left: 40%;
         padding: 10px 20px;
         background-color: #e32594;
         color: #fff;
@@ -56,7 +54,28 @@
 
       .center-align {
         text-align: center;
-        font-size: 30px;
+      }
+
+      .buttons {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .buttons a,
+      .buttons button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .buttons #Button {
+        transform: translate(-150%, -50%);
+      }
+
+      .buttons #movingButton {
+        transform: translate(50%, -50%);
       }
     </style>
   </head>
@@ -72,8 +91,8 @@
       const button = document.getElementById("movingButton");
 
       function moveButton() {
-        const newX = Math.random() * window.innerWidth;
-        const newY = Math.random() * window.innerHeight;
+        const newX = Math.random() * (window.innerWidth - button.offsetWidth);
+        const newY = Math.random() * (window.innerHeight - button.offsetHeight);
 
         button.style.left = newX + "px";
         button.style.top = newY + "px";
