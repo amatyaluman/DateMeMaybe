@@ -91,11 +91,20 @@
       const button = document.getElementById("movingButton");
 
       function moveButton() {
-        const newX = Math.random() * (window.innerWidth - button.offsetWidth);
-        const newY = Math.random() * (window.innerHeight - button.offsetHeight);
+        const buttonWidth = button.offsetWidth;
+        const buttonHeight = button.offsetHeight;
 
-        button.style.left = newX + "px";
-        button.style.top = newY + "px";
+        // Calculate maximum allowed positions
+        const maxX = window.innerWidth - buttonWidth;
+        const maxY = window.innerHeight - buttonHeight;
+
+        // Generate random positions within the visible area
+        const newX = Math.random() * maxX;
+        const newY = Math.random() * maxY;
+
+        // Ensure the button stays within the screen bounds
+        button.style.left = Math.min(Math.max(newX, 0), maxX) + "px";
+        button.style.top = Math.min(Math.max(newY, 0), maxY) + "px";
       }
 
       button.addEventListener("mouseenter", moveButton);
