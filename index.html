@@ -105,8 +105,8 @@
         const newY = Math.random() * maxY;
 
         // Ensure the button stays within the screen bounds
-        button.style.left = Math.min(Math.max(newX, 0), maxX) + "px";
-        button.style.top = Math.min(Math.max(newY, 0), maxY) + "px";
+        button.style.left = `${Math.min(Math.max(newX, 0), maxX}px`;
+        button.style.top = `${Math.min(Math.max(newY, 0), maxY}px`;
       }
 
       button.addEventListener("mouseenter", moveButton);
