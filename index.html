@@ -15,59 +15,77 @@
         text-align: center;
         margin: 0;
         position: relative;
-        overflow: hidden;
+        overflow: hidden; /* Prevent scrolling */
       }
       p {
         position: absolute;
         top: 20%;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 5vw;
+        font-size: 5vw; /* Responsive font size */
         white-space: nowrap;
-        margin: 0;
+        margin: 0; /* Remove default margin */
       }
-      .buttons {
-        position: relative;
-        width: 100%;
-        height: 100%;
-      }
-      .buttons a,
-      .buttons button {
+
+      #movingButton {
         position: absolute;
         padding: 10px 20px;
         background-color: #e32594;
         color: #fff;
         border: none;
         cursor: pointer;
-        font-size: 1.2rem;
         transition: transform 0.3s ease-in-out;
       }
+
       #movingButton:hover {
         transform: scale(1.1);
       }
+
       #Button {
+        position: absolute;
+        padding: 10px 20px;
+        background-color: #e32594;
+        color: #fff;
+        border: none;
         text-decoration: none;
       }
+
       #Button:hover {
         background-color: #e61d1d;
       }
-      .buttons #Button {
+
+      .center-align {
+        text-align: center;
+      }
+
+      .buttons {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .buttons a,
+      .buttons button {
+        position: absolute;
         top: 50%;
-        left: 35%;
+        left: 50%;
         transform: translate(-50%, -50%);
       }
+
+      .buttons #Button {
+        transform: translate(-150%, -50%);
+      }
+
       .buttons #movingButton {
-        top: 50%;
-        left: 65%;
-        transform: translate(-50%, -50%);
+        transform: translate(50%, -50%);
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <p><b>Will you go on a date with me??</b></p>
+      <p class="center-align"><b>Will you go on a date with me??</b></p>
       <div class="buttons">
-        <a href="yes.html" id="Button">Yes</a>
+        <a href="yes.html" class="btn" id="Button">Yes</a>
         <button id="movingButton">No</button>
       </div>
     </div>
@@ -75,20 +93,22 @@
       const button = document.getElementById("movingButton");
 
       function moveButton() {
-        const buttonRect = button.getBoundingClientRect();
-        const maxX = window.innerWidth - buttonRect.width - 10;
-        const maxY = window.innerHeight - buttonRect.height - 10;
-        let newX, newY;
-        do {
-          newX = Math.random() * maxX;
-          newY = Math.random() * maxY;
-        } while (
-          Math.abs(newX - window.innerWidth * 0.35) < 100 &&
-          Math.abs(newY - window.innerHeight * 0.5) < 50
-        );
-        button.style.left = `${newX}px`;
-        button.style.top = `${newY}px`;
+        const buttonWidth = button.offsetWidth;
+        const buttonHeight = button.offsetHeight;
+
+        // Calculate maximum allowed positions
+        const maxX = window.innerWidth - buttonWidth;
+        const maxY = window.innerHeight - buttonHeight;
+
+        // Generate random positions within the visible area
+        const newX = Math.random() * maxX;
+        const newY = Math.random() * maxY;
+
+        // Ensure the button stays within the screen bounds
+        button.style.left = Math.min(Math.max(newX, 0), maxX) + "px";
+        button.style.top = Math.min(Math.max(newY, 0), maxY) + "px";
       }
+
       button.addEventListener("mouseenter", moveButton);
     </script>
   </body>
