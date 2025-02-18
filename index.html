@@ -53,12 +53,12 @@
       }
       .buttons #Button {
         top: 50%;
-        left: 40%;
+        left: 35%;
         transform: translate(-50%, -50%);
       }
       .buttons #movingButton {
         top: 50%;
-        left: 60%;
+        left: 65%;
         transform: translate(-50%, -50%);
       }
     </style>
@@ -76,10 +76,16 @@
 
       function moveButton() {
         const buttonRect = button.getBoundingClientRect();
-        const maxX = window.innerWidth - buttonRect.width;
-        const maxY = window.innerHeight - buttonRect.height;
-        const newX = Math.random() * maxX;
-        const newY = Math.random() * maxY;
+        const maxX = window.innerWidth - buttonRect.width - 10;
+        const maxY = window.innerHeight - buttonRect.height - 10;
+        let newX, newY;
+        do {
+          newX = Math.random() * maxX;
+          newY = Math.random() * maxY;
+        } while (
+          Math.abs(newX - window.innerWidth * 0.35) < 100 &&
+          Math.abs(newY - window.innerHeight * 0.5) < 50
+        );
         button.style.left = `${newX}px`;
         button.style.top = `${newY}px`;
       }
